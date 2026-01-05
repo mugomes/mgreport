@@ -2,9 +2,7 @@
 
 MGReport é um componente para exibir relatório para impressão no formato A4 para Fyne.
 
-## Instalação
-
-`go get github.com/mugomes/mgreport`
+Este componente está em desenvolvimento!
 
 ## Requirement
 
