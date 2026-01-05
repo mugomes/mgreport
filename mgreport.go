@@ -3,7 +3,7 @@
 
 // Site: https://www.mugomes.com.br
 
-package report
+package mgreport
 
 import (
 	"fmt"
@@ -16,7 +16,7 @@ import (
 	"fyne.io/fyne/v2/layout"
 	"fyne.io/fyne/v2/theme"
 	"fyne.io/fyne/v2/widget"
-	"github.com/jung-kurt/gofpdf"
+	"codeberg.org/go-pdf/fpdf"
 )
 
 const (
@@ -115,7 +115,7 @@ func updateCanvasObjects(obj fyne.CanvasObject, factor float32) {
 }
 
 func (dv *DocViewer) ExportToPDF(savePath string) error {
-	pdf := gofpdf.New("P", "mm", "A4", "")
+	pdf := fpdf.New("P", "mm", "A4", "")
 	tr := pdf.UnicodeTranslatorFromDescriptor("")
 
 	// Proporção de escala: Fyne (595pt) para PDF (210mm)
@@ -156,6 +156,7 @@ func (dv *DocViewer) ExportToPDF(savePath string) error {
 				pdf.MultiCell(objW, fSize*0.4, tr(realObj.Text), "", "L", false)
 
 			case *canvas.Text:
+				pdfX := absX+7.2
 				// Puxa o tamanho do objeto do Canvas
 				fSize := float64(realObj.TextSize)
 
@@ -166,7 +167,7 @@ func (dv *DocViewer) ExportToPDF(savePath string) error {
 				pdf.CellFormat(objW, fSize*0.5, tr(realObj.Text), "", 0, "L", false, 0, "")
 
 			case *widget.Separator:
-				middleY := pdfY + (objH / 2)
+				middleY := float64(pdfY + (objH / 2) - 3)
 				pdf.SetDrawColor(180, 180, 180) // Cor cinza padrão
 				pdf.SetLineWidth(0.2)
 				pdf.Line(pdfX, middleY, pdfX+objW, middleY)
