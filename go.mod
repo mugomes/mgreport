@@ -3,8 +3,8 @@ module github.com/mugomes/mgreport
 go 1.25.5
 
 require (
+	codeberg.org/go-pdf/fpdf v0.11.1
 	fyne.io/fyne/v2 v2.7.1
-	github.com/jung-kurt/gofpdf v1.16.2
 )
 
 require (
